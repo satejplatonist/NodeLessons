@@ -1,0 +1,11 @@
+npm init
+
+npm init -y -> for direct packkage.json
+
+npm install <name of packages>
+npm uninstall <name of packages>
+npm update <name of packages>
+
+npm run <script name>
+
+
