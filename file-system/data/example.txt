@@ -1,0 +1,2 @@
+This is new file created using fs.writeFileSync
+ this is new line appended using appendFileSync

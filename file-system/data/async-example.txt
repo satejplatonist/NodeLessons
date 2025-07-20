@@ -1,0 +1,2 @@
+this file is created using async way using fs.writeFile
+This is new line added
