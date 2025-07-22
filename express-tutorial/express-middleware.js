@@ -3,21 +3,39 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-app.get('/checkup',(req,res)=>{
-   const username = req.headers.username;
-   const password = req.headers.password;
-   const kidneyId = req.query.kidneyId;
+function userMiddleware(req,res,next) 
+{
+    const username = req.headers.username;
+    const password = req.headers.password;
+    if(username != 'admin' && password != 'admin')
+    {
+        res.status(404).send("user not found");
+        console.log("in usermiddleware 1");
+    }
+    else
+    {
+        console.log("in usermiddleware 2");
+        next();
+    }
+}
 
-   if(username === 'admin' && password === 'admin')
-   {
-      if(kidneyId == 1 || kidneyId == 2){
-        res.json({
-            msg:"your kidney is fine"
-        })    
-      }
-   }
+function kidneyMiddleware(req,res,next)
+{
+    const kidneyId = req.query.kidneyId;
+    if(kidneyId != 1 && kidneyId != 2){
+       res.status(404).send("no kidney found");
+       console.log("in kidneymiddleware 1");
+    }
+    else{
+        console.log("in kidneymiddleware 2");
+        next();
+    }
+}
 
-   res.status(400).send("somethings wrong with this .....");
+app.get('/checkup',userMiddleware,kidneyMiddleware,(req,res)=>{
+    res.json({
+        msg:"auth middlewares working , user authenticated and kidneys are fine"
+    })
 })
 
 
