@@ -38,5 +38,16 @@ app.get('/checkup',userMiddleware,kidneyMiddleware,(req,res)=>{
     })
 })
 
+app.post('/addkidney',(req,res)=>{
+    const kidneys = req.body.kidneys;
+    if(!kidneys){res.status(400).json({msg:"wrong inputs"}); return}
+    const kidneyLength = kidneys.length;
+    res.send(`Length of your kidneys is ${kidneyLength}`);
+})
+
+// global catches
+app.use(function (err,req,res,next) {
+    res.status(404).json({msg:"Sorry something is up with our server"});
+})
 
 app.listen(3000);
