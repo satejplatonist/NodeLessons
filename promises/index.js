@@ -15,7 +15,7 @@ function delay(time)
 }
 
 console.log("Promise lecture : ");
-delay(8000).then(()=>{console.log("after 2 seconds promise resolved : ");})
+delay(8000).then(()=>{console.log("after 8 seconds promise resolved : ");})
            .catch((error)=>{console.log("Error is : ",error);})
            .finally(()=>{console.log("Promise settled .....")});
 
