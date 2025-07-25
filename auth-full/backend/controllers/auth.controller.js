@@ -1,7 +1,8 @@
-import z from 'zod';
+import z, { success } from 'zod';
 import {User} from '../models/users.js';
 import bcrypt from 'bcryptjs';
 import { generateVerificationCode } from '../secure.utils/verification.js';
+import { generateTokenAndSetCookie } from '../secure.utils/generateTokenSetCookie.js';
 
 function checkSignUpUser(email,password,name) 
 {
@@ -54,11 +55,24 @@ export const signup = async (req,res)=>{
 
         await newUser.save(); // save user
 
+        // jwt
+        generateTokenAndSetCookie(res,newUser._id)
+
+        // return 
+        return res.status(200).json({
+            success: true,
+            msg: "User created sucessfully",
+            user: {
+                ...newUser._doc,
+                password: undefined
+            }
+        })
+
     } catch (error) {
         console.error(`signup error ${error}`);
     }
 }
-
+// email api token 4cde753f030fec3fb37ccefb6f5285e5
 export const login = async (req,res)=>{
     return res.send('login route');
 }

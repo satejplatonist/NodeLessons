@@ -6,7 +6,7 @@ config();
 const connectToDB = async () => {
     try {
         
-        await mongoose.connect(`mongodb+srv://satej:${process.env.DB_PASSWORD}@cluster0.z1f3xex.mongodb.net/`)
+        await mongoose.connect(`mongodb+srv://satej:${process.env.DB_PASSWORD}@cluster0.z1f3xex.mongodb.net/auth_db`)
                       .then(()=>{console.log("connected sucessfully to db ....")});
 
     } catch (error) {
